@@ -1,19 +1,20 @@
 import Product from '../fixtures/product.js';
+import User from '../fixtures/user.js';
 import ProdutosRequest from '../requests/produtos.request.js';
 const request = new ProdutosRequest;
 const produtosFixture = Product;
-const adminEmail = Cypress.env("ADMIN_EMAIL");
-const adminPassword = Cypress.env("ADMIN_PASSWORD");
 
-const userEmail = Cypress.env("USER_EMAIL");
-const userPassword = Cypress.env("USER_PASSWORD");
+const adminUser = User.createRandomUser(true);
+const normalUser = User.createRandomUser(false);
+
 let newProduct;
 let putProduct;
 
 describe('Testes Funcionais - Produtos', () => {
 
     before(() => {
-        cy.login(adminEmail, adminPassword);
+        cy.createNewUser(adminUser);
+        cy.login(adminUser);
       });
 
     it('POST - Deve validar mensagem de Produto com nome duplicado', () => {
@@ -71,7 +72,8 @@ describe('Testes Funcionais - Produtos', () => {
   
     describe('Teste Funcionais - Produtos - Usuário não autorizado', () => {
       before(() => {
-        cy.login(userEmail, userPassword);
+        cy.createNewUser(normalUser);
+        cy.login(normalUser);
       });
   
     it('POST - Não deve permitir o cadastro de produto quando o usuario não é administrador', () => {

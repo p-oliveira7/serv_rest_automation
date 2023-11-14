@@ -1,17 +1,18 @@
 import Product from '../fixtures/product.js';
+import User from '../fixtures/user.js';
 import ProdutosRequest from '../requests/produtos.request.js';
 const request = new ProdutosRequest;
 const produtosFixture = Product;
-const adminEmail = Cypress.env("ADMIN_EMAIL");
-const adminPassword = Cypress.env("ADMIN_PASSWORD");
 
-const userEmail = Cypress.env("USER_EMAIL");
-const userPassword = Cypress.env("USER_PASSWORD");
+const adminUser = User.createRandomUser(true);
+const normalUser = User.createRandomUser(false);
+
 let newProduct;
 let putProduct;
 describe('CRUD - PRODUTOS - smokeTest', () => {
     before(() => {
-      cy.login(adminEmail, adminPassword);
+      cy.createNewUser(adminUser);
+      cy.login(adminUser);
     });
   
     it('Deve listar os produtos cadastrados GET', () => {
