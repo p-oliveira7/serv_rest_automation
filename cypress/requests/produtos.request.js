@@ -1,57 +1,27 @@
 
 class ProdutosRequest {
-    listarProdutos(authToken = null) {
-      const headers = authToken ? { Authorization: `${authToken}` } : {};
-      return cy.api({
-        method: 'GET',
-        url: '/produtos',
-        headers,
-      });
-    }
+  listarProdutos() {
+    return cy.customApiRequest('GET', '/produtos');
+  }
 
-    cadastrarProduto(authToken, produto) {
-        return cy.api({
-          method: 'POST',
-          url: '/produtos',
-          headers: { Authorization: `${authToken}` },
-          body: produto,
-          failOnStatusCode: false,
-        }).then((res) => {
-          Cypress.env('productId', res.body._id);
-          return res;
-        });
-    }
+  cadastrarProduto(authToken, produto) {
+    return cy.customApiRequest('POST', '/produtos', authToken, produto).then((res) => {
+      Cypress.env('productId', res.body._id);
+      return res;
+    });
+  }
 
-    buscarProdutoPorId(id, authToken = null) {
-      const headers = authToken ? { Authorization: `${authToken}` } : {};
-  
-      return cy.api({
-        method: 'GET',
-        url: `/produtos/${id}`,
-        headers,
-        failOnStatusCode: false,
-      });
-    }
+  buscarProdutoPorId(id, authToken) {
+    return cy.customApiRequest('GET', `/produtos/${id}`, authToken);
+  }
 
-    editarProduto(id, authToken, produto) {
-    
-      return cy.api({
-        method: 'PUT',
-        url: `/produtos/${id}`,
-        headers: { Authorization: `${authToken}` },
-        body: produto,
-        failOnStatusCode: false,
-      });
-    }
+  editarProduto(id, authToken, produto) {
+    return cy.customApiRequest('PUT', `/produtos/${id}`, authToken, produto);
+  }
 
-    excluirProduto(id, authToken) {
-      return cy.api({
-        method: 'DELETE',
-        url: `/produtos/${id}`,
-        headers: { Authorization: `${authToken}` },
-        failOnStatusCode: false,
-      });
-    }
+  excluirProduto(id, authToken) {
+    return cy.customApiRequest('DELETE', `/produtos/${id}`, authToken);
+  }
 }
 
 export default ProdutosRequest;
