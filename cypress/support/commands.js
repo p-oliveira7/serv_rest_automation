@@ -12,31 +12,17 @@ Cypress.Commands.add('postUser', (user) => {
       })
 })
 
-Cypress.Commands.add('postNewUser', (user) => {
-  cy.api({
-      failOnStatusCode: false,
-      method: 'POST',
-      url: '/usuarios',
-      body: {
-        "nome": user.nome,
-        "email": user.email,
-        "password": user.password,
-        "administrador": user.administrador
-      }
-    })
-})
 
-Cypress.Commands.add('login', (user) => {
+Cypress.Commands.add('login', (email, password) => {
   cy.api({
-      failOnStatusCode: false,
       method: 'POST',
       url: '/login',
       body: {
-        "email": user.email,
-        "password": user.password,
+        "email": email,
+        "password": password,
       }
     }).then((response) => {
       expect(response.status).to.eq(200);
-      user.authToken = response.body.authorization;
+      Cypress.env('authToken', response.body.authorization)
     })
 })

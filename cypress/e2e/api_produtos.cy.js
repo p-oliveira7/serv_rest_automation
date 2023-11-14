@@ -1,90 +1,56 @@
-import User from '../fixtures/user.js';
 import Product from '../fixtures/product.js';
-const faker = require('faker-br');
+import ProdutosRequest from '../requests/produtos.request.js';
+const request = new ProdutosRequest;
+const produtosFixture = Product;
+const adminEmail = Cypress.env("ADMIN_EMAIL");
+const adminPassword = Cypress.env("ADMIN_PASSWORD");
 
-const adminUser = User.createRandomUser(true);
-const normalUser = User.createRandomUser(false);
+const userEmail = Cypress.env("USER_EMAIL");
+const userPassword = Cypress.env("USER_PASSWORD");
 let newProduct;
 let putProduct;
 describe('CRUD - PRODUTOS', () => {
     before(() => {
-        cy.postNewUser(adminUser);
-        cy.login(adminUser);
+      cy.login(adminEmail, adminPassword);
     });
-
+  
     it('Deve listar os produtos cadastrados GET', () => {
-        cy.api({
-          method: 'GET',
-          url: '/produtos'
-        }).then((res) => {
-          expect(res.status).to.eql(200);
-          expect(res.body).to.be.not.null; 
-        });
-      })
-
-      it('Deve cadastrar um produto POST ', () => {
-
-        newProduct = Product.createRandomProduct();
-        cy.api({
-            method: 'POST',
-            url: '/produtos',
-            headers: {
-                Authorization: `${adminUser.authToken}`,
-            },
-            body: {
-                "nome": newProduct.nome,
-                "preco": newProduct.preco,
-                "descricao": newProduct.descricao,
-                "quantidade": newProduct.quantidade
-            },
-          }).then((res) => {
-            expect(res.status).to.eql(201);
-            expect(res.body.message).to.be.eql('Cadastro realizado com sucesso');
-            newProduct._id = res.body._id;
-          });
-        })
+      request.listarProdutos().then((res) => {
+        expect(res.status).to.eql(200);
+        expect(res.body).to.be.not.null;
+      });
+    });
+  
+    it('Deve cadastrar um produto POST', () => {
+      newProduct = produtosFixture.createRandomProduct();
+      
+      request.cadastrarProduto(Cypress.env('authToken'), newProduct).then((res) => {
+        expect(res.status).to.eql(201);
+        expect(res.body.message).to.be.eql('Cadastro realizado com sucesso');
+        newProduct._id = res.body._id;
+      });
+    });
 
     it('Deve buscar o produto pelo ID GET', () => {
-        cy.api({
-            method: 'GET',
-            url: `/produtos/${newProduct._id}`,
-        }).then((res) => {
-            expect(res.status).to.eql(200);
-            expect(res.body).deep.equal(newProduct);
-        });
+      request.buscarProdutoPorId(newProduct._id, Cypress.env('authToken')).then((res) => {
+        expect(res.status).to.eql(200);
+        expect(res.body).deep.equal(newProduct);
+      });
     });
-    
+
     it('Deve Editar o produto pelo ID PUT', () => {
-        putProduct = Product.createRandomProduct();
-        cy.api({
-            method: 'PUT',
-            url: `/produtos/${newProduct._id}`,
-            headers: {
-                Authorization: `${adminUser.authToken}`,
-            },
-            body: {
-                "nome": putProduct.nome,
-                "preco": putProduct.preco,
-                "descricao": putProduct.descricao,
-                "quantidade": putProduct.quantidade
-            },
-        }).then((res) => {
-            expect(res.status).to.eql(200);
-            expect(res.body.message).to.be.eql('Registro alterado com sucesso');
-        });
+      putProduct = produtosFixture.createRandomProduct();
+      
+      request.editarProduto(newProduct._id, Cypress.env('authToken'), putProduct).then((res) => {
+        expect(res.status).to.eql(200);
+        expect(res.body.message).to.be.eql('Registro alterado com sucesso');
+      });
     });
-    
+
     it('Deve excluir o produto pelo ID DELETE', () => {
-        putProduct = Product.createRandomProduct();
-        cy.api({
-            method: 'DELETE',
-            url: `/produtos/${newProduct._id}`,
-            headers: {
-                Authorization: `${adminUser.authToken}`,
-            },
-        }).then((res) => {
-            expect(res.status).to.eql(200);
-            expect(res.body.message).to.be.eql('Registro excluído com sucesso');
-        });
+      request.excluirProduto(newProduct._id, Cypress.env('authToken')).then((res) => {
+        expect(res.status).to.eql(200);
+        expect(res.body.message).to.be.eql('Registro excluído com sucesso');
+      });
     });
 });

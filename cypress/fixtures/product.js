@@ -1,8 +1,7 @@
 const faker = require('faker-br');
 
 class Product {
-  constructor(_id, nome, preco, descricao, quantidade) {
-    this._id = _id;
+  constructor(nome, preco, descricao, quantidade) {
     this.nome = nome;
     this.preco = preco;
     this.descricao = descricao;
@@ -11,7 +10,6 @@ class Product {
 
   static createRandomProduct() {
     return new Product(
-      "",
       faker.commerce.productName(),
       faker.random.number({ min: 1, max: 1000, precision: 2 }),
       faker.lorem.words(),
