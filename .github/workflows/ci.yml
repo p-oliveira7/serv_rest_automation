@@ -1,4 +1,4 @@
-name: e2e-tests
+name: api-tests
 on: [push]
 jobs:
   cypress-run:
@@ -12,8 +12,10 @@ jobs:
           env: true
           browser: chrome
         env: 
-          AMAZON_EMAIL: ${{secrets.AMAZON_EMAIL}}
-          AMAZON_PASSWORD: ${{secrets.AMAZON_PASSWORD}}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
       - name: Merge results
         run: npm run report:merge
       - name: Generate results
