@@ -69,7 +69,7 @@ Cypress.Commands.add('login', (user) => {
 Cypress.Commands.add('customApiRequest', (method, url, authToken = null, body = null) => {
   const headers = authToken ? { Authorization: `${authToken}` } : {};
 
-  return cy.request({
+  return cy.api({
     method,
     url,
     headers,
