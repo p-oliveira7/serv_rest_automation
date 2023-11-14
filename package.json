@@ -6,7 +6,7 @@
   "scripts": {
     "cy:open": "npx cypress open",
     "cy:run": "npx cypress run",
-    "deploy": "gh-pages -d cypress/videos",
+    "deploy": "gh-pages -d cypress/results/videos/",
     "report:merge": "mochawesome-merge cypress/results/json/* > index.json",
     "report:generate": "marge index.json --reportDir public --assetsDir public/assets --reportPageTitle index.html"
   },
