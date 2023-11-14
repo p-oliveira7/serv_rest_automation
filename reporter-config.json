@@ -7,6 +7,6 @@
         "html": false,
         "json": true,
         "video": true,
-        "videosFolder":"cypress/videos"
+        "videosFolder":"cypress/results/videos"
     }
 }

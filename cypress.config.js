@@ -12,6 +12,8 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: 'https://serverest.dev',
     specPattern: "cypress/api/*.spec.js",
+    videosFolder: "cypress/results/videos",
+    screenshotsFolder: "cypress/results/screenshots",
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },

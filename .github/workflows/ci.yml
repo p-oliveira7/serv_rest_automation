@@ -19,13 +19,8 @@ jobs:
         run: npm run report:merge
       - name: Generate results
         run: npm run report:generate
-      - name: Deploy reports page
+      - name: Deploy reports and videos
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-      - name: Deploy videos
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./cypress/videos
+          publish_dir: ./cypress/results
