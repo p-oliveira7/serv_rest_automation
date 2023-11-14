@@ -5,6 +5,8 @@
         "quiet": true,
         "overwrite": false,
         "html": false,
-        "json": true
+        "json": true,
+        "video": true,
+        "videosFolder":"cypress/videos"
     }
 }
