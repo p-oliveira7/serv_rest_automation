@@ -1,0 +1,185 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 5,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-11-14T06:44:41.242Z",
+    "end": "2023-11-14T06:44:42.607Z",
+    "duration": 1365,
+    "testsRegistered": 5,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "30aa3083-cb9c-4629-afef-2593146288c2",
+      "title": "",
+      "fullFile": "cypress/api/api_produtos.spec.js",
+      "file": "cypress/api/api_produtos.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c53dbc65-9b5e-4370-aa75-4c0a47d48859",
+          "title": "CRUD - PRODUTOS - smokeTest",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Deve listar os produtos cadastrados GET",
+              "fullTitle": "CRUD - PRODUTOS - smokeTest Deve listar os produtos cadastrados GET",
+              "timedOut": null,
+              "duration": 654,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "request.listarProdutos().then(res => {\n  expect(res.status).to.eql(200);\n  expect(res.body).to.be.not.null;\n});",
+              "err": {},
+              "uuid": "30a284cb-535e-4788-813f-79f15babf42b",
+              "parentUUID": "c53dbc65-9b5e-4370-aa75-4c0a47d48859",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve cadastrar um produto POST",
+              "fullTitle": "CRUD - PRODUTOS - smokeTest Deve cadastrar um produto POST",
+              "timedOut": null,
+              "duration": 192,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "newProduct = produtosFixture.createRandomProduct();\nrequest.cadastrarProduto(Cypress.env('authToken'), newProduct).then(res => {\n  expect(res.status).to.eql(201);\n  expect(res.body.message).to.be.eql('Cadastro realizado com sucesso');\n  expect(res.body).to.have.property('_id');\n});",
+              "err": {},
+              "uuid": "843f9a94-f76d-4f5b-afaf-99e328404278",
+              "parentUUID": "c53dbc65-9b5e-4370-aa75-4c0a47d48859",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve buscar o produto pelo ID GET",
+              "fullTitle": "CRUD - PRODUTOS - smokeTest Deve buscar o produto pelo ID GET",
+              "timedOut": null,
+              "duration": 157,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "request.buscarProdutoPorId(Cypress.env('productId'), Cypress.env('authToken')).then(res => {\n  newProduct._id = Cypress.env('productId');\n  expect(res.status).to.eql(200);\n  expect(res.body).deep.equal(newProduct);\n});",
+              "err": {},
+              "uuid": "3cb8bf43-3e00-4102-afbb-efecb53d6ac6",
+              "parentUUID": "c53dbc65-9b5e-4370-aa75-4c0a47d48859",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve Editar o produto pelo ID PUT",
+              "fullTitle": "CRUD - PRODUTOS - smokeTest Deve Editar o produto pelo ID PUT",
+              "timedOut": null,
+              "duration": 157,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "putProduct = produtosFixture.createRandomProduct();\nrequest.editarProduto(Cypress.env('productId'), Cypress.env('authToken'), putProduct).then(res => {\n  expect(res.status).to.eql(200);\n  expect(res.body.message).to.be.eql('Registro alterado com sucesso');\n});",
+              "err": {},
+              "uuid": "a28af902-aa2d-49f8-b825-26b79c429d6d",
+              "parentUUID": "c53dbc65-9b5e-4370-aa75-4c0a47d48859",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve excluir o produto pelo ID DELETE",
+              "fullTitle": "CRUD - PRODUTOS - smokeTest Deve excluir o produto pelo ID DELETE",
+              "timedOut": null,
+              "duration": 150,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "request.excluirProduto(Cypress.env('productId'), Cypress.env('authToken')).then(res => {\n  expect(res.status).to.eql(200);\n  expect(res.body.message).to.be.eql('Registro excluído com sucesso');\n});",
+              "err": {},
+              "uuid": "c8b83096-c2de-4042-812a-366dbc910467",
+              "parentUUID": "c53dbc65-9b5e-4370-aa75-4c0a47d48859",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "30a284cb-535e-4788-813f-79f15babf42b",
+            "843f9a94-f76d-4f5b-afaf-99e328404278",
+            "3cb8bf43-3e00-4102-afbb-efecb53d6ac6",
+            "a28af902-aa2d-49f8-b825-26b79c429d6d",
+            "c8b83096-c2de-4042-812a-366dbc910467"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1310,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/json",
+        "quiet": true,
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "video": true,
+        "videosFolder": "cypress/results/videos"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
