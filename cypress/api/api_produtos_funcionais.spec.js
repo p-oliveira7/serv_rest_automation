@@ -1,5 +1,5 @@
-import Product from '../fixtures/product.js';
-import User from '../fixtures/user.js';
+import Product from '../utils/productUtils.js';
+import User from '../utils/userUtils.js';
 import ProdutosRequest from '../requests/produtos.request.js';
 
 const request = new ProdutosRequest();
