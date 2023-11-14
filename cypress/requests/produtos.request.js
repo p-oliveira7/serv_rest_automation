@@ -2,7 +2,6 @@
 class ProdutosRequest {
     listarProdutos(authToken = null) {
       const headers = authToken ? { Authorization: `${authToken}` } : {};
-  
       return cy.api({
         method: 'GET',
         url: '/produtos',
