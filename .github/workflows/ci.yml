@@ -10,6 +10,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           env: true
+          browser: chrome
         env: 
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
@@ -19,9 +20,8 @@ jobs:
         run: npm run report:merge
       - name: Generate results
         run: npm run report:generate
-      - name: Deploy reports and videos
+      - name: Deploy reports page
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          destination_dir: ${{ github.ref }}
