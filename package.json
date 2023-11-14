@@ -9,7 +9,7 @@
     "report:merge": "mochawesome-merge cypress/results/json/* > index.json",
     "report:generate": "marge index.json --reportDir public --assetsDir public/assets --reportPageTitle index.html"
   },
-  "author": "",
+  "author": "https://github.com/p-oliveira7",
   "license": "ISC",
   "dependencies": {
     "cypress": "^12.11.0"

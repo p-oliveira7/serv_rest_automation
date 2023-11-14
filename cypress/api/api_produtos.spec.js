@@ -27,12 +27,13 @@ describe('CRUD - PRODUTOS - smokeTest', () => {
       request.cadastrarProduto(Cypress.env('authToken'), newProduct).then((res) => {
         expect(res.status).to.eql(201);
         expect(res.body.message).to.be.eql('Cadastro realizado com sucesso');
-        newProduct._id = res.body._id;
+        expect(res.body).to.have.property('_id');
       });
     });
 
     it('Deve buscar o produto pelo ID GET', () => {
-      request.buscarProdutoPorId(newProduct._id, Cypress.env('authToken')).then((res) => {
+      request.buscarProdutoPorId(Cypress.env('productId'), Cypress.env('authToken')).then((res) => {
+        newProduct._id = Cypress.env('productId');
         expect(res.status).to.eql(200);
         expect(res.body).deep.equal(newProduct);
       });
@@ -41,14 +42,14 @@ describe('CRUD - PRODUTOS - smokeTest', () => {
     it('Deve Editar o produto pelo ID PUT', () => {
       putProduct = produtosFixture.createRandomProduct();
       
-      request.editarProduto(newProduct._id, Cypress.env('authToken'), putProduct).then((res) => {
+      request.editarProduto(Cypress.env('productId'), Cypress.env('authToken'), putProduct).then((res) => {
         expect(res.status).to.eql(200);
         expect(res.body.message).to.be.eql('Registro alterado com sucesso');
       });
     });
 
     it('Deve excluir o produto pelo ID DELETE', () => {
-      request.excluirProduto(newProduct._id, Cypress.env('authToken')).then((res) => {
+      request.excluirProduto(Cypress.env('productId'), Cypress.env('authToken')).then((res) => {
         expect(res.status).to.eql(200);
         expect(res.body.message).to.be.eql('Registro excluído com sucesso');
       });

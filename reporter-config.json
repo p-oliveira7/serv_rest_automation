@@ -6,7 +6,5 @@
         "overwrite": false,
         "html": false,
         "json": true
-    },
-    "video": true,
-    "videosFolder": "cypress/results/videos"
+    }
 }

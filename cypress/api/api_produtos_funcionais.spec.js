@@ -50,26 +50,26 @@ describe('Testes Funcionais - Produtos', () => {
       });
     });
     it('DELETE - Deve validar mensagem de token de acesso ausente', () => {
-        request.excluirProduto(newProduct._id, '').then((res) => {
+        request.excluirProduto(Cypress.env('productId'), '').then((res) => {
           expect(res.status).to.eql(401);
           expect(res.body.message).to.be.eql('Token de acesso ausente, inválido, expirado ou usuário do token não existe mais');
         });
     });
     it('PUT - Deve validar mensagem de Produto com nome duplicado', () => {  
-        request.editarProduto(newProduct._id, Cypress.env('authToken'), newProduct).then((res) => {
+        request.editarProduto(Cypress.env('productId'), Cypress.env('authToken'), newProduct).then((res) => {
           expect(res.status).to.eql(400);
           expect(res.body.message).to.be.eql('Já existe produto com esse nome');
         });
     });
     it('PUT - Deve validar mensagem de Produto com nome duplicado', () => {  
-      request.editarProduto(newProduct._id, '', newProduct).then((res) => {
+      request.editarProduto(Cypress.env('productId'), '', newProduct).then((res) => {
         expect(res.status).to.eql(401);
         expect(res.body.message).to.be.eql('Token de acesso ausente, inválido, expirado ou usuário do token não existe mais');
       });
     });
   });
   
-    describe('Teste Funcionais - Produto - Usuário não autorizado', () => {
+    describe('Teste Funcionais - Produtos - Usuário não autorizado', () => {
       before(() => {
         cy.login(userEmail, userPassword);
       });
@@ -82,7 +82,7 @@ describe('Testes Funcionais - Produtos', () => {
         });
     });
     it('DELETE - Não deve permitir a exclusão de produto quando o usuario não é administrador', () => {
-      request.excluirProduto(newProduct._id, Cypress.env('authToken')).then((res) => {
+      request.excluirProduto(Cypress.env('productId'), Cypress.env('authToken')).then((res) => {
         expect(res.status).to.eql(403);
         expect(res.body.message).to.be.eql('Rota exclusiva para administradores');
       });
@@ -90,7 +90,7 @@ describe('Testes Funcionais - Produtos', () => {
     it('PUT - Não deve permitir a edição de produto quando o usuario não é administrador', () => {
       putProduct = produtosFixture.createRandomProduct();
       
-      request.editarProduto(newProduct._id, Cypress.env('authToken'), putProduct).then((res) => {
+      request.editarProduto(Cypress.env('productId'), Cypress.env('authToken'), putProduct).then((res) => {
         expect(res.status).to.eql(403);
         expect(res.body.message).to.be.eql('Rota exclusiva para administradores');
       });

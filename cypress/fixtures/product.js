@@ -10,12 +10,11 @@ class Product {
 
   static createRandomProduct() {
     return new Product(
-      faker.commerce.productName(),
+      faker.commerce.productName() + faker.random.number({ min: 1, max: 999999,}),
       faker.random.number({ min: 1, max: 1000, precision: 2 }),
       faker.lorem.words(),
       faker.random.number({ min: 1, max: 100 })
     );
   }
 }
-
 export default Product;
