@@ -16,6 +16,7 @@ class ProdutosRequest {
           url: '/produtos',
           headers: { Authorization: `${authToken}` },
           body: produto,
+          failOnStatusCode: false,
         }).then((res) => {
           Cypress.env('productId', res.body._id);
           return res;
@@ -29,6 +30,7 @@ class ProdutosRequest {
         method: 'GET',
         url: `/produtos/${id}`,
         headers,
+        failOnStatusCode: false,
       });
     }
 
@@ -39,6 +41,7 @@ class ProdutosRequest {
         url: `/produtos/${id}`,
         headers: { Authorization: `${authToken}` },
         body: produto,
+        failOnStatusCode: false,
       });
     }
 
@@ -47,6 +50,7 @@ class ProdutosRequest {
         method: 'DELETE',
         url: `/produtos/${id}`,
         headers: { Authorization: `${authToken}` },
+        failOnStatusCode: false,
       });
     }
 }
